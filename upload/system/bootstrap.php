@@ -4,10 +4,10 @@
 //require_once DIR_LIBRARY . "autoload.php";
 
 function __autoload($file){
-	$path = VQMod::modCheck(strtolower(DIR_SYSTEM.$file.".php"));
+	$path = strtolower(DIR_SYSTEM.$file.".php");
 
 	if(!file_exists(DIR_SYSTEM.$path.".php")){
-		require_once $path;
+		import($path);
 	}else{
 		exit('Error:' . $path);
 	}
@@ -43,14 +43,14 @@ $Controller->render(Route::getPath()."_". Route::getMethod());
 
 /* Carrega o arquivo de Model */
 if(Route::getModel())
-	require_once Route::getModel();
+	import(Route::getModel());
 
 /* Carrega o arquivo de linguagem */
 if(Route::getLanguage())
-	require_once Route::getLanguage();
+	import(Route::getLanguage());
 
 /* Carrega o arquivo do Controller */
-require_once Route::getFile();
+import(Route::getFile());
 
 /* Inicia Método do Controller */
 $harmonyCartControllerClassVal = Route::getClass();
@@ -60,7 +60,7 @@ $harmonyCartControllerMethodVal = Route::getMethod();
 $harmonyCartControllerClass->$harmonyCartControllerMethodVal();
 
 /* Carrega arquivo layout */
-require_once VQMod::modCheck(DIR_CORE . "layout.php");
+import(DIR_CORE . "layout.php");
 
 $HarmonyCartViewLayout = new HarmonyCartViewLayout();
 
