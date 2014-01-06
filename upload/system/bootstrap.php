@@ -1,8 +1,5 @@
 <?php
 
-/* Carrega o autoload */
-//require_once DIR_LIBRARY . "autoload.php";
-
 function __autoload($file){
 	$path = strtolower(DIR_SYSTEM.$file.".php");
 
@@ -23,14 +20,11 @@ use Library\Request;
 use Library\Session;
 
 
-$model = new Core\Model();
-$model->arquivo()->asdfad();
-
 /* Captura todos os Request */
 $request = new Request();
 
 /* Captura a Rota informatada */
-Route::forge(Request::getParams());
+Route::start(Request::getParams());
 
 /* Chama o arquivo, class e método informado na rota */
 $Controller = new Core\Controller();
@@ -53,15 +47,15 @@ if(Route::getLanguage())
 import(Route::getFile());
 
 /* Inicia Método do Controller */
-$harmonyCartControllerClassVal = Route::getClass();
-$harmonyCartControllerClass = new $harmonyCartControllerClassVal();
+$ii_ControllerClassVal = Route::getClass();
+$ii_ControllerClass = new $ii_ControllerClassVal();
 
-$harmonyCartControllerMethodVal = Route::getMethod();
-$harmonyCartControllerClass->$harmonyCartControllerMethodVal();
+$ii_ControllerMethodVal = Route::getMethod();
+$ii_ControllerClass->$ii_ControllerMethodVal();
 
 /* Carrega arquivo layout */
 import(DIR_CORE . "layout.php");
 
-$HarmonyCartViewLayout = new HarmonyCartViewLayout();
+$ii_ViewLayout = new HarmonyCartViewLayout();
 
-$HarmonyCartViewLayout->execute();
+$ii_ViewLayout->execute();

@@ -33,7 +33,7 @@ class Route
 	 *          array  $args 
 	 *  @return bool
 	 */
-	public static function forge($parts, $args = array())
+	public static function start($parts, $args = array())
 	{
 		if(count($parts) > 0){
 			if(ADMIN_NAME == $parts[0]){

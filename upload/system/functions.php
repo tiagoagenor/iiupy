@@ -1,10 +1,10 @@
 <?php
 
 	function v_php(){
-		if ( compare_version(PHP_VERSION, '5.3.0', '<=')){
-			return false;
-		}else{
+		if ( version_compare(PHP_VERSION, '5.3.0', '<=')){
 			return true;
+		}else{
+			return false;
 		}
 	}
 
@@ -18,8 +18,13 @@ if(!function_exists('import')){
 
 if(!function_exists('is')){
 	function is($method){
-		if($_SERVER['REQUEST_METHOD'] == $method){
-			return true;
+		p($_SERVER['REQUEST_METHOD']);
+		if(strtoupper($_SERVER['REQUEST_METHOD']) == strtoupper($method)){
+			if(count($_GET) > 0){
+				return true;
+			}else{
+				return false;
+			}
 		}else{
 			return false;
 		}
@@ -28,7 +33,7 @@ if(!function_exists('is')){
 
 if(!function_exists('is_post')){
 	function is_post(){
-		if($_SERVER['REQUEST_METHOD'] == 'post'){
+		if(strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
 			return true;
 		}else{
 			return false;
@@ -37,17 +42,21 @@ if(!function_exists('is_post')){
 }
 
 if(!function_exists('is_get')){
-	function is_post(){
-		if($_SERVER['REQUEST_METHOD'] == 'get'){
-			return true;
+	function is_get(){
+		if(strtoupper($_SERVER['REQUEST_METHOD']) == 'GET'){
+			if(count($_GET) > 0){
+				return true;
+			}else{
+				return false;
+			}
 		}else{
 			return false;
 		}
 	}
 }
 
-if(!function_exists('post')){
-	function post($var = false){
+if(!function_exists('request_post')){
+	function request_post($var = false){
 		if($var === false){
 			return $_POST;
 		}else{
@@ -60,8 +69,8 @@ if(!function_exists('post')){
 	}
 }
 
-if(!function_exists('get')){
-	function get($var = false){
+if(!function_exists('request_get')){
+	function request_get($var = false){
 		if($var === false){
 			return $_GET;
 		}else{
@@ -74,8 +83,8 @@ if(!function_exists('get')){
 	}
 }
 
-if(!function_exists('file')){
-	function file($var = false){
+if(!function_exists('request_file')){
+	function request_file($var = false){
 		if($var === false){
 			return $_FILES;
 		}else{
@@ -152,19 +161,29 @@ if(!function_exists('set')){
 }
 
 if(!function_exists('data')){
-	function data(){
+	function data($var = false){
 		$return = array();
 		if($_POST){
-			foreach($_POST as $key as  $val){
+			foreach($_POST as $key =>  $val){
 				$return[$key] = $val;
 			}
 		}
 
 		if($_GET){
-			foreach($_GET as $key as  $val){
+			foreach($_GET as $key =>  $val){
 				$return[$key] = $val;
 			}
 		}
+
+		if($_FILES){
+			foreach($_FILES as $key =>  $val){
+				$return[$key] = $val;
+			}	
+		}
+		if($var !== false){
+			return isset($return[$var]) ? $return[$var] : false;
+		}
+
 		return $return;
 	}
 }
@@ -194,6 +213,31 @@ if(!function_exists('js')){
 	}
 }
 
+
+if(!function_exists('del')){
+	function del(){
+		
+	}
+}
+
+if(!function_exists('now')){
+	function now(){
+		return date("Y-m-d G:i:s");
+	}
+}
+
+
+if(!function_exists('ii_position')){
+	function ii_position(){
+		
+	}
+}
+
+if(!function_exists('render')){
+	function render(){
+		
+	}
+}
 
 
 
